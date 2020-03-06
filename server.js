@@ -24,8 +24,8 @@ app.get("/notes", function (req, res) {
 });
 
 getDatabase(() => {
-app.get("/api/notes", function (req, res) {
-  res.json(db);
+  app.get("/api/notes", function (req, res) {
+    res.json(db);
   });
 });
 
@@ -35,7 +35,7 @@ postNewNote(() => {
 
     let newNote = req.body;
 
-    newNote.id = uuid(id);
+    newNote.id = uuid();
 
     db.push(newNote);
 
@@ -49,16 +49,14 @@ postNewNote(() => {
 deleteNote(() => {
   app.delete("/api/notes/:id", function (req, res) {
     let chosenId = res.params.id;
-    // newNote.id = uuid(newNote);
 
     for (let i = 0; i < db.length; i++) {
       if (chosenId === db[i].id) {
         db.splice(i, 1);
 
-      } else {
-        res.json(db);
       }
     };
+    res.json(db);
   });
 });
 
