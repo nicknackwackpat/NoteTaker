@@ -1,63 +1,52 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const {
-  uuid
-} = require("uuidv4");
+const { uuid } = require("uuidv4");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static("public"));
+
 const OUTPUT_DIR = path.resolve(__dirname, "db")
 const outputPath = path.join(OUTPUT_DIR, "db.json");
-
-const db = require("./db/db.json");
-
-// const activeNote = [{}];
+let db = require("./db/db.json");
 
 app.get("/notes", function (req, res) {
   res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
-getDatabase(() => {
-  app.get("/api/notes", function (req, res) {
-    res.json(db);
-  });
+app.get("/api/notes", function (req, res) {
+  res.json(db);
 });
 
-postNewNote(() => {
-  app.post("/api/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "./db.json"));
+app.post("/api/notes", function (req, res) {
+  res.sendFile(path.join(__dirname, "./db/db.json"));
 
-    let newNote = req.body;
+  let newNote = req.body;
 
-    newNote.id = uuid();
+  newNote.id = uuid();
 
-    db.push(newNote);
+  db.push(newNote);
 
-    fs.writeFile(outputPath, db, function (err) {
-      if (err) throw err;
-    });
-
+  fs.writeFile(outputPath, JSON.stringify(db), function (err) {
+    if (err) throw err;
   });
+
 });
 
-deleteNote(() => {
-  app.delete("/api/notes/:id", function (req, res) {
-    let chosenId = res.params.id;
 
-    for (let i = 0; i < db.length; i++) {
-      if (chosenId === db[i].id) {
-        db.splice(i, 1);
+app.delete("/api/notes/:id", function (req, res) {
+  let chosenId = req.params.id;
 
-      }
-    };
-    res.json(db);
-  });
+  for (let i = 0; i < db.length; i++) {
+    if (chosenId === db[i].id) {
+      db.splice(i, 1);
+    }
+  };
+  res.json(db);
 });
 
 
