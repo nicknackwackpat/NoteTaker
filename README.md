@@ -1,18 +1,21 @@
 # NoteTaker
 
-![GitHub license](https://www.nypl.org/sites/default/files/Readme_social.gif)
+![GitHub license](https://media2.giphy.com/media/3ohs4qxmDXm5RvWtnW/giphy.gif)
 
   ===================
 
 ## Repository Description
 
-  [![GitHub license](https://img.shields.io/badge/version-1.0.0-brightgreen)](https://github.com/users/nicknackwackpat/NoteTaker)
+  ![GitHub license](https://img.shields.io/badge/node-12.16.4-brightgreen)
+  ![GitHub license](https://img.shields.io/badge/express.js-5.x-brightgreen)
 
   A Node.js CLI appliciation utilizing Express allowing the user to save and delete written notes on an HTML webpage.
 
   ---------------------
 
 ## Table of Contents
+
+  * [Heroku](#Heroku)
 
   * [Installation](#Installation)
 
@@ -32,6 +35,11 @@
 
 ---------------------
 
+## Heroku Link
+
+https://nicksjotanote.herokuapp.com/
+
+
 ## Installation
 
   These are the instructions in order to install this repo: By running "node server.js" in Git Bash or Terminal.
@@ -42,7 +50,7 @@
 
 ## Motivation
 
-  To make note-taking more accessible motivated me to create this repo.
+  To make note-taking more accessible is what motivated me to create this repo.
 
 ## License
 
